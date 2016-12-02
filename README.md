@@ -1,4 +1,5 @@
 #Usage
+copy shape file and relted files to /data folder then run the following commands
 ```
 docker-compose up
 docker exec -it gis_loader /bin/sh
