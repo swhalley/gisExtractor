@@ -10,3 +10,6 @@ currently we dont copy in the shape file to the container, need to
 http://suite.opengeo.org/docs/latest/dataadmin/pgGettingStarted/shp2pgsql.html
 https://hub.docker.com/r/mdillon/postgis/
 https://docs.docker.com/compose/compose-file/
+
+SHP's .proj can be converted to the <sid>
+http://prj2epsg.org/search
