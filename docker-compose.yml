@@ -6,5 +6,7 @@ services:
         environment: 
             - POSTGRES_PASSWORD=password
             - POSTGRES_USER=peidevs
+        volumes: 
+            - ./data:/home/workspace/data
         ports: 
             - "5432:5432"
