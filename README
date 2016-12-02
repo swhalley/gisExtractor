@@ -1,0 +1,4 @@
+#Usage
+docker-compose up
+docker exec -it gis_loader /bin/sh
+./extract.sh <sid> <path/to/shape/file> <databaseTable>
