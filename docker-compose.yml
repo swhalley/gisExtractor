@@ -1,0 +1,10 @@
+version: '2'
+services: 
+    postgis :
+        build: .
+        container_name: gis_loader
+        environment: 
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_USER=peidevs
+        ports: 
+            - "5432:5432"
