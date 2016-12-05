@@ -65,7 +65,7 @@
                 httpRequest.addEventListener("loadend", _ => { showLoader( false )} );
                 httpRequest.addEventListener("load", loadComplete );
                 httpRequest.addEventListener( "error", errorLoadingInfo );
-                httpRequest.open('GET', 'http://localhost:5938/files', true);
+                httpRequest.open('GET', 'http://localhost:8080/files', true);
                 httpRequest.send(null);
             };
 
