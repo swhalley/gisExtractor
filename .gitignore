@@ -1,4 +1,8 @@
+#shape files
 *.dbf
 *.prj
 *.shp
 *.shx
+
+#Node Stuff
+node_modules

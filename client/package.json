@@ -1,0 +1,11 @@
+{
+  "name": "gisloader",
+  "version": "0.0.1",
+  "description": "Endpoints to load Shapefiles to PostGIS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Whalley",
+  "license": "Apache-2.0"
+}

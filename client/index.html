@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>GIS Data Loader</title>
+    <style type="text/css">
+        #loadingScreen {
+            position: fixed;
+            z-index: 500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(55, 55, 55, 0.7);
+            display: none;
+        }
+        
+        #loadingScreen span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #eeeeee;
+        }
+
+        footer .credit {
+        float: right;
+        }
+    </style>
+</head>
+
+<body onload="loadGISData();">
+    <button onclick="loadGISData();">Refresh Data Folder</button>
+    <div id="gisDataForm"></div>
+
+    <footer>
+        <span>GIS Data Loader (v0.0.1)</span>
+        <span class="credit">Load image from http://loading.io/</span>
+    </footer>
+
+    <div id="loadingScreen">
+        <span><img src="gears.svg" alt="Loading Data"></span>
+    </div>
+
+
+    <script type="text/javascript">
+            let loadGISData = function(){
+                let httpRequest = new XMLHttpRequest();
+                let errorLoadingInfo = function(){
+                    document.getElementById( 'gisDataForm' ).innerHTML = 'Error loading gis data files.';
+                }
+
+                let loadComplete = function(){
+                    document.getElementById( 'gisDataForm').innerHTML = httpRequest.response; //yep...really trusting the response here...
+                }
+                
+                showLoader( true );
+
+                httpRequest.addEventListener("loadend", _ => { showLoader( false )} );
+                httpRequest.addEventListener("load", loadComplete );
+                httpRequest.addEventListener( "error", errorLoadingInfo );
+                httpRequest.open('GET', 'http://localhost:5938/lookForDataFiles', true);
+                httpRequest.send(null);
+            };
+
+            let showLoader = function( isShown){
+                let loader = document.getElementById( "loadingScreen" );
+                loader.style.display = isShown ? 'block' : 'none';
+            };
+
+    </script>
+</body>
+
+</html>
