@@ -1,22 +1,16 @@
-FROM mdillon/postgis 
+FROM node:latest
 
-ENV HOME_FOLDER /home/workspace
+WORKDIR /home/workspace/web
 
-#Get Data Folder Ready
-RUN mkdir $HOME_FOLDER
-RUN mkdir $HOME_FOLDER/data
-WORKDIR $HOME_FOLDER
-
-#install node
-RUN apt-get update 
-RUN apt-get -y install wget 
-RUN wget -nv http://nodejs.org/dist/v7.1.0/node-v7.1.0-linux-x64.tar.gz 
-RUN tar -C /usr/local --strip-components 1 -xzf node-v7.1.0-linux-x64.tar.gz
-RUN rm  node-v7.1.0-linux-x64.tar.gz
+#install shape file tools. postgis package installs postgres and a whole lot more. need to find a lite version
+RUN apt-get update \   
+ && apt-get -y install postgis
 
 #Bring in the service code
-COPY shapeService/ $HOME_FOLDER/
-RUN npm install forever -g
-RUN npm install
+RUN mkdir -p /home/workspace/web
+RUN mkdir -p /home/workspace/data
 
-CMD forever start $HOME_FOLDER/server.js
+COPY ./client /home/workspace/web
+RUN npm install -verbose
+
+CMD npm start
