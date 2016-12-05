@@ -1,8 +1,9 @@
 "use strict";
 var express = require('express');
-var fs = require('fs');
 var app = express();
 
+var fs = require('fs');
+var notSoSecure = require( './notSoSecure');
 
 var server = app.listen( 5938, function(){
     console.log( 'Server started on port 5938' );
@@ -24,9 +25,13 @@ app.get( '/files', ( req, res ) => {
             if( fs.statSync( `${path}/${filename}`).isDirectory()){
                 return getFilesInDirectory( `${path}/${filename}` );
             }else {
-                return filename;
+                return {
+                    "filename" : filename,
+                    "hash" : notSoSecure.encrypt( path )
+                };
             }
-        }).reduce( (a, b) => a.concat( b ), []);
+        }).reduce( (a, b) => a.concat( b ), [])
+        .filter( ( file ) => file.filename.indexOf(".shp", file.filename.length - ".shp".length) !== -1);
     }
 
     res.json( getFilesInDirectory( basePath) );
