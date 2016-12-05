@@ -12,6 +12,6 @@ RUN mkdir -p $HOME_DIR/web
 RUN mkdir -p $HOME_DIR/data
 
 COPY ./client/package.json $HOME_DIR/web/package.json
-RUN npm install -verbose
+RUN npm install
 
 CMD npm start
