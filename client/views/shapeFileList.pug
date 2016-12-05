@@ -1,0 +1,6 @@
+each val in shapeFiles.length ? shapeFiles : ['No data found in the data folder']
+    div
+        span(data-hash=val.hash) #{val.filename}
+        input(type="text" placeholder="SID")
+        button Guess SID
+        button Process

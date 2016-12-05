@@ -9,6 +9,7 @@ var server = app.listen( 5938, function(){
     console.log( 'Server started on port 5938' );
 });
 
+app.set('view engine', 'pug');
 app.use( express.static('resources'));
 
 app.get( '/', ( req, res ) =>{
@@ -27,17 +28,15 @@ app.get( '/files', ( req, res ) => {
             }else {
                 return {
                     "filename" : filename,
-                    "hash" : notSoSecure.encrypt( path )
+                    "hash" : notSoSecure.encrypt( `${path}/${filename}`  )
                 };
             }
         }).reduce( (a, b) => a.concat( b ), [])
         .filter( ( file ) => file.filename.indexOf(".shp", file.filename.length - ".shp".length) !== -1);
     }
 
-    res.json( getFilesInDirectory( basePath) );
+    res.render( 'shapeFileList', { shapeFiles : getFilesInDirectory( basePath) } );
     
 });
 
-app.post( '/file/:filename/:sid/:tablename', (req, res ) => {
-
-});
+app.post( '/file/:filename/:sid/:tablename', (req, res ) => { });
