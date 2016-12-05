@@ -1,3 +1,6 @@
+#Current State
+Broken - Working on user experience ot load data easier and faster. 
+
 #Usage
 copy shape file and relted files to /data folder then run the following commands
 ```
