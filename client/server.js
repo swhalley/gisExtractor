@@ -1,5 +1,6 @@
 "use strict";
 var express = require('express');
+var fs = require('fs');
 var app = express();
 
 
@@ -17,7 +18,19 @@ app.get( '/', ( req, res ) =>{
 });
 
 app.get( '/files', ( req, res ) => {
-    res.send( '<div>Found 4 files</div>' );
+    let basePath = process.env.HOME_DIR + '/data';
+    let getFilesInDirectory = function( path ){
+        return fs.readdirSync( path ).map( (filename) => {
+            if( fs.statSync( `${path}/${filename}`).isDirectory()){
+                return getFilesInDirectory( `${path}/${filename}` );
+            }else {
+                return filename;
+            }
+        }).reduce( (a, b) => a.concat( b ), []);
+    }
+
+    res.json( getFilesInDirectory( basePath) );
+    
 });
 
 app.post( '/file/:filename/:sid/:tablename', (req, res ) => {
